@@ -6,7 +6,13 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.save
+    if @user.save
+      session[:user_id] = @user.id
+      redirect_to new_upload_path
+    else
+      flash.now[:notice] = 'Email already registered'
+      render :new
+    end
   end
 
 

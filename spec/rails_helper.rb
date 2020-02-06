@@ -66,4 +66,5 @@ RSpec.configure do |config|
       with.library :rails
     end
   end
+  Capybara.ignore_hidden_elements = false
 end

@@ -14,26 +14,29 @@ class UploadsController < ApplicationController
 
       obj = s3.bucket(bucket).object(name)
 
-      obj.upload_file(file)
+      if check_unique_identifiers(file)
+        obj.upload_file(file)
+      else
+        flash.now[:notice] = 'There was an error with the CSV. Please check the unique identifiers'
+        render :new and return
+      end
 
-      puts "FILENAME #{obj.key}"
-      puts "URL #{obj.public_url}"
-      puts "ORIGINAL FILE NAME: #{file.original_filename}"
-
+      puts params.inspect
 
       # Create an object for the upload
-      # @upload = Upload.new(
-      # 		url: obj.public_url,
-  		#     name: obj.key
-      # 	)
-      #
-      # # Save the upload
-      # if @upload.save
-      #   redirect_to uploads_path, success: 'File successfully uploaded'
-      # else
-      #   flash.now[:notice] = 'There was an error'
-      #   render :new
-      # end
+      @upload = Upload.new(
+          original_filename: file.original_filename,
+          filename: obj.key,
+      		url: obj.public_url,
+          user_id: current_user.id
+      	)
+
+      if @upload.save
+        redirect_to uploads_path, success: 'File successfully uploaded'
+      else
+        flash.now[:notice] = 'There was an error'
+        render :new
+      end
     end
 
     def index
