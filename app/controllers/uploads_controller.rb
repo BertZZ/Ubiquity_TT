@@ -16,7 +16,13 @@ class UploadsController < ApplicationController
 
     file = params[:file]
 
-    bucket = 'testbucketbertz'
+
+    unless file.original_filename.include?('.csv')
+      flash.now[:notice] = 'Please upload a CSV file'
+      render :new and return
+    end
+
+    bucket = 'ubiquitytestbucket'
 
     name = append_uuid(file.original_filename)
 
@@ -50,7 +56,7 @@ class UploadsController < ApplicationController
   def show
     @upload = Upload.find(params[:id])
     s3 = Aws::S3::Resource.new(region: 'eu-west-2')
-    obj = s3.bucket('testbucketbertz').object(@upload.filename)
+    obj = s3.bucket('ubiquitytestbucket').object(@upload.filename)
     file = obj.get.body.readlines
     @headers = file[0].split(',')
     @data = file.drop(1)
