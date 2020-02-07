@@ -1,0 +1,22 @@
+<h1> <%= @upload.original_filename %> </h1>
+
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+      <% @headers.each do |header| %>
+        <th scope="col"><%= header %></th>
+      <% end %>
+      </tr>
+    </thead>
+    <tbody>
+       <% @data.each do |line| %>
+       <tr>
+        <% line.split(',').each do |word| %>
+          <td> <%= word %> </td>
+        <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
