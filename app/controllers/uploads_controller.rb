@@ -3,10 +3,12 @@ class UploadsController < ApplicationController
   def new; end
 
   def index
+    @current_user = current_user
     @uploads = Upload.where(user_id: current_user.id)
   end
 
-  def create
+  def create #Consider extracting Upload to a new class
+
     # Make an object in your bucket for your upload
     s3 = Aws::S3::Resource.new(region: 'eu-west-2')
 

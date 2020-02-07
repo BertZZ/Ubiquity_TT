@@ -32,6 +32,7 @@ group :test do
   gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
+  gem 'simplecov'
   gem 'webdrivers'
   gem 'webmock'
 end
