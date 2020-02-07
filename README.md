@@ -3,7 +3,7 @@
 ## Ubiquity Tech Test
 https://ubiquitytt.herokuapp.com/
 
-The brief for this test was to create an app that allowed for storage of CSV files on Amazon S3 andto view their contents
+The brief for this test was to create an app that allowed for storage of CSV files on Amazon S3 and to view their contents
 
 This solution uses TDD asa design and verification process. This was my first time working with AWS and S3 so a large amont of time was spent on configuration.
 
