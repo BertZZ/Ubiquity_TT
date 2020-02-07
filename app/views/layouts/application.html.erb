@@ -10,10 +10,12 @@
   </head>
 
   <body>
+    <%= link_to "Log Out", logout_path if @current_user%>
+    
     <% if flash[:notice] %>
       <div class="notice"><%= flash[:notice] %></div>
     <% end %>
-    
+
     <%= yield %>
   </body>
 </html>

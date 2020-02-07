@@ -1,4 +1,6 @@
 class UploadsController < ApplicationController
+  include AuthExceptions
+  before_action :authenticate_user!
 
   def new; end
 
@@ -52,5 +54,11 @@ class UploadsController < ApplicationController
     file = obj.get.body.readlines
     @headers = file[0].split(',')
     @data = file.drop(1)
+  end
+
+  protected
+
+  def authenticate_user!
+    raise AuthExceptions::NotSignedIn unless current_user
   end
 end
