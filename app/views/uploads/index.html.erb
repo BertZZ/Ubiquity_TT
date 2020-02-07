@@ -2,6 +2,6 @@
 
 
 <% @uploads.each do |upload| %>
-  <%= link_to upload.original_filename, upload_path(upload.id) %>
+  <%= link_to upload.filename, upload_path(upload.id) %>
   <br>
 <% end %>
